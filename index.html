@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<meta name="theme-color" content="#07030e">
+<title>ChronoX</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%2307040d'/%3E%3Ccircle cx='50' cy='53' r='31' fill='none' stroke='%23a96bff' stroke-width='6'/%3E%3Cpath d='M50 34v20l13 8' fill='none' stroke='white' stroke-width='5' stroke-linecap='round'/%3E%3Cpath d='M42 11h16' stroke='%23cdaaff' stroke-width='6' stroke-linecap='round'/%3E%3C/svg%3E">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;700;800&family=Orbitron:wght@600;700;800;900&display=swap');
+:root{--bg:#06030b;--p:#100819;--p2:#160d22;--line:#ffffff13;--muted:#8d7d98;--text:#f7f1ff;--purple:#9b5cff;--purple2:#6725db;--green:#56e3a0;--red:#ff6480;--gold:#ffca6a}
+*{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden;background:var(--bg);color:var(--text);font-family:"JetBrains Mono",monospace}button,input,select{font:inherit}button{cursor:pointer}.hidden{display:none!important}
+body{background:radial-gradient(circle at 15% 5%,#4f217a22,transparent 28%),radial-gradient(circle at 90% 100%,#6a27c51c,transparent 30%),linear-gradient(#0b0611,#050309)}
+.grid{position:fixed;inset:0;pointer-events:none;opacity:.22;background-image:linear-gradient(#aa6cff08 1px,transparent 1px),linear-gradient(90deg,#aa6cff08 1px,transparent 1px);background-size:38px 38px;mask-image:linear-gradient(#000,transparent)}
+.top{position:fixed;z-index:40;left:0;right:0;top:0;height:72px;padding:10px 15px;display:flex;align-items:center;justify-content:space-between;background:#08050dbb;border-bottom:1px solid var(--line);backdrop-filter:blur(16px)}
+.brand{display:flex;align-items:center;gap:11px}.brandText strong{display:block;font:800 17px Orbitron;letter-spacing:1.7px}.brandText span{display:block;color:#786b82;font-size:8px;margin-top:3px;letter-spacing:1px}
+.logo{width:44px;height:44px;border-radius:13px;background:linear-gradient(145deg,#a768ff,#5720c6);position:relative;box-shadow:0 0 26px #934eff3b,inset 0 0 0 1px #fff2;display:grid;place-items:center}.logo:before{content:"";width:29px;height:29px;border-radius:50%;background:#100716;border:2px solid #fff;box-shadow:inset 0 0 12px #9b5cff33}.logo:after{content:"";position:absolute;width:3px;height:13px;background:#fff;border-radius:2px;top:9px;left:21px;box-shadow:7px 13px 0 -1px #fff}
+.icon{width:44px;height:44px;border:1px solid var(--line);border-radius:13px;background:#ffffff06;color:#fff;transition:.18s}.icon:hover{background:#9b5cff14;border-color:#9b5cff66;transform:translateY(-2px)}
+.main{position:fixed;inset:72px 0 0;overflow:auto;padding:22px 14px 35px}.wrap{width:min(1020px,100%);margin:auto}.hero{display:flex;justify-content:space-between;align-items:flex-end;gap:15px;margin-bottom:16px}.hero h1{margin:0;font:800 clamp(25px,5vw,41px) Orbitron}.hero p{margin:7px 0 0;color:#8c7d95;font-size:9px}.status{padding:8px 11px;border:1px solid var(--line);border-radius:999px;background:#fff006;font-size:9px;white-space:nowrap}.status.on{color:var(--green);border-color:#56e3a022;background:#56e3a009}
+.card{background:linear-gradient(180deg,#150b21e8,#0a0610ee);border:1px solid var(--line);border-radius:22px;box-shadow:0 24px 80px #0008;padding:18px}.modes{display:grid;grid-template-columns:1fr 1fr;gap:6px;padding:5px;background:#0006;border-radius:13px;margin-bottom:14px}.mode{padding:11px;border:0;border-radius:10px;background:transparent;color:#8e8197}.mode.active{color:#fff;background:#9b5cff20;border:1px solid #9b5cff55}.face{min-height:255px;display:grid;place-items:center;text-align:center;border-radius:18px;background:radial-gradient(circle,#9b5cff19,transparent 48%),#0b0610;border:1px solid #a568ff20}.caption{color:#917e9d;font-size:9px;letter-spacing:2px}.time{font:800 clamp(43px,8vw,86px) Orbitron;letter-spacing:2px;margin-top:12px;text-shadow:0 0 22px #9b5cff35}.sub{margin-top:10px;color:#74667e;font-size:8px;letter-spacing:1.3px}.inputs{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:13px}.inputBox label,.formGroup label{display:block;margin-bottom:5px;color:#75697e;font-size:8px;letter-spacing:1px}.field{width:100%;padding:12px;border-radius:10px;border:1px solid var(--line);background:#09050e;color:#fff;outline:none}.field:focus{border-color:#9b5cff77;box-shadow:0 0 0 3px #9b5cff10}.controls{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-top:12px}.btn{padding:12px;border:1px solid var(--line);border-radius:12px;color:#fff;font-weight:800;transition:.14s}.btn:hover{transform:translateY(-2px)}.btn:active{transform:scale(.97)}.primary{background:linear-gradient(135deg,#9b5cff,#6725dc);border-color:#fff2;box-shadow:0 10px 28px #6725dc30}.secondary{background:#fff008}.danger{background:#ff567d10;border-color:#ff567d33;color:#ff9ab0}.row{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:11px 12px;margin-top:9px;border-radius:12px;background:#ffffff04;border:1px solid var(--line)}.sound select{border:0;background:transparent;color:#fff;outline:0}.row small{display:block;color:#74677d;font-size:7px;margin-top:3px}.toggle{width:50px;height:29px;border:0;border-radius:99px;background:#281933;position:relative}.toggle i{position:absolute;top:4px;left:4px;width:21px;height:21px;border-radius:50%;background:#fff;transition:.18s}.toggle.on{background:linear-gradient(135deg,#9b5cff,#6725dc)}.toggle.on i{left:25px}
+.overlay{position:fixed;inset:0;z-index:70;background:#0008;backdrop-filter:blur(6px)}.drawer{position:absolute;right:0;top:0;width:min(380px,88vw);height:100%;padding:84px 14px 18px;background:linear-gradient(#160b23,#08040e);border-left:1px solid var(--line);transform:translateX(100%);transition:.25s;overflow:auto}.drawer.open{transform:none}.menuLabel{color:#b995ed;font-size:9px;letter-spacing:2px;margin:8px 7px}.menuItem{width:100%;padding:13px;border:1px solid transparent;background:transparent;color:#fff;border-radius:12px;text-align:left;display:flex;gap:12px;align-items:center}.menuItem:hover{background:#9b5cff12;border-color:#9b5cff18}.menuItem b{font-size:11px}.menuItem small{display:block;color:#766a7f;font-size:7px;margin-top:3px}.mi{width:28px;text-align:center;font-size:16px}
+.full{position:fixed;inset:0;z-index:90;display:grid;place-items:center;overflow:auto;padding:16px;background:radial-gradient(circle at top,#241137,#09040f 44%,#030207)}.panel{width:min(820px,100%);background:#0d0714f5;border:1px solid var(--line);border-radius:23px;padding:19px;box-shadow:0 36px 100px #000b}.panelHead{display:flex;align-items:center;gap:10px;margin-bottom:15px}.panelHead h2{margin:0;font:700 19px Orbitron}.panelHead .spacer{margin-left:auto}.tinyBack{width:38px;height:38px;border:1px solid var(--line);border-radius:11px;background:#fff007;color:#fff}.sectionGrid{display:grid;grid-template-columns:1fr 1fr;gap:9px}.section{padding:13px;border:1px solid var(--line);border-radius:15px;background:#ffffff03}.section.wide{grid-column:1/-1}.section h3{margin:0 0 10px;color:#c5a5ef;font-size:9px;letter-spacing:1.5px}.setting{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:9px 0;border-top:1px solid #ffffff08}.setting:first-child{border-top:0}.setting strong{display:block;font-size:9px}.setting small{display:block;color:#71657a;font-size:7px;margin-top:3px}.settingRight{display:flex;gap:7px;align-items:center}.settingRight select,.settingRight input[type=number]{background:#08040d;color:#fff;border:1px solid var(--line);border-radius:8px;padding:7px}.history{max-height:260px;overflow:auto}.historyItem{display:flex;justify-content:space-between;gap:10px;padding:8px 0;border-top:1px solid #ffffff07}.historyItem strong{font-size:8px}.historyItem small{display:block;color:#706378;font-size:7px;margin-top:2px}.historyTime{color:#bd9bfa;font-size:8px}.panelFoot{display:flex;justify-content:flex-end;gap:7px;margin-top:12px}.empty{padding:10px 0;color:#6d6276;font-size:8px}.auth{width:min(560px,100%)}.authLogo{text-align:center}.authLogo .logo{margin:auto}.authLogo h1{font:800 25px Orbitron;margin:13px 0 5px}.authLogo p{margin:0;color:#7d7086;font-size:8px;line-height:1.7}.tabs{display:grid;grid-template-columns:1fr 1fr;gap:5px;background:#08040d;padding:5px;border-radius:11px;margin:14px 0}.tab{padding:10px;border:0;border-radius:8px;background:transparent;color:#7e7187}.tab.active{color:#fff;background:#9b5cff20}.formGroup{margin-top:10px}.help{margin-top:10px;padding:10px;border-radius:10px;background:#08040d;color:#75687d;font-size:8px;line-height:1.65}.error{min-height:16px;margin-top:9px;color:#ff7894;font-size:8px}.formActions{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-top:10px}.displayName{width:min(530px,100%);text-align:center}.displayName .logo{margin:auto}.displayName h1{font:800 28px Orbitron;margin:14px 0 8px}.displayName p{font-size:9px;color:#81748a;line-height:1.7}.loading{position:fixed;inset:0;z-index:200;display:grid;place-items:center;background:#020106f5}.loadClock{width:155px;height:155px;border-radius:50%;border:4px solid #7431dc;box-shadow:0 0 45px #823eff33;position:relative;background:#09040f}.loadClock:before{content:"";position:absolute;inset:10px;border:1px solid #cba9ff33;border-radius:50%}.lh,.lm,.ls{position:absolute;left:50%;bottom:50%;transform-origin:50% 100%;border-radius:3px}.lh{width:4px;height:39px;background:#c9a8ff;transform:translateX(-50%) rotate(35deg)}.lm{width:3px;height:55px;background:#fff;transform:translateX(-50%) rotate(165deg)}.ls{width:2px;height:63px;background:#9b5cff;animation:spin 1.15s linear infinite;transform:translateX(-50%)}.dot{position:absolute;left:50%;top:50%;width:8px;height:8px;border-radius:50%;background:#fff;transform:translate(-50%,-50%)}.loading h3{text-align:center;font:700 13px Orbitron;letter-spacing:2px;margin:18px 0 5px}.loading p{text-align:center;color:#75687d;font-size:8px}@keyframes spin{from{transform:translateX(-50%) rotate(0)}to{transform:translateX(-50%) rotate(360deg)}}
+.toast{position:fixed;z-index:220;left:50%;bottom:18px;transform:translate(-50%,20px);opacity:0;pointer-events:none;padding:9px 12px;border:1px solid var(--line);border-radius:10px;background:#170c20;color:#fff;font-size:8px;transition:.2s}.toast.show{opacity:1;transform:translate(-50%,0)}
+#parentalModeBar{margin-top:10px;padding:10px;border-radius:11px;background:#56e3a00a;border:1px solid #56e3a022;color:#69e7ad;font-size:8px;line-height:1.55}
+.child{padding:9px;margin-top:8px;border:1px solid var(--line);border-radius:11px;background:#08040d}.childTop{display:flex;justify-content:space-between;gap:8px}.childTop b{font-size:9px}.childTop span{font-size:7px;color:#71657a}.bar{height:6px;background:#25182f;border-radius:999px;margin-top:8px;overflow:hidden}.bar i{display:block;width:0;height:100%;background:linear-gradient(90deg,#6725dc,#a86cff)}
+@media(max-width:700px){.hero{align-items:flex-start;flex-direction:column}.sectionGrid{grid-template-columns:1fr}.section.wide{grid-column:auto}.panel{padding:15px}.formActions{grid-template-columns:1fr}.time{font-size:39px}.face{min-height:220px}.top{height:66px}.main{inset:66px 0 0}.brandText span{display:none}.brandText strong{font-size:14px}}
+@media(max-width:420px){.controls{grid-template-columns:1fr 1fr 1fr}.controls .btn{font-size:10px;padding:11px 7px}.time{font-size:33px}.inputs{gap:6px}.sound{align-items:flex-start}.sound select{max-width:170px}}
+</style>
+</head>
+<body>
+<div id="app">
+<div class="grid"></div>
+<header class="top">
+  <div class="brand">
+    <button class="logo" id="logoHome" aria-label="ChronoX"></button>
+    <div class="brandText"><strong id="brandTitle">ChronoX</strong><span id="brandSub">TIME CONTROL SYSTEM</span></div>
+  </div>
+  <button class="icon" id="menuButton" aria-label="Menu" title="Menu">☰</button>
+</header>
+
+<main class="main"><div class="wrap">
+  <div class="hero">
+    <div><h1 id="heroTitle">ChronoX</h1><p id="heroText">Precision timing with built-in sounds and local history.</p></div>
+    <div class="status" id="status">GUEST MODE</div>
+  </div>
+
+  <section class="card">
+    <div class="modes">
+      <button class="mode active" data-mode="timer">⏱ TIMER</button>
+      <button class="mode" data-mode="stopwatch">⏲ STOPWATCH</button>
+    </div>
+
+    <div class="face">
+      <div>
+        <div class="caption" id="caption">COUNTDOWN TIMER</div>
+        <div class="time" id="time">00:00:00</div>
+        <div class="sub" id="sub">SET A TIME TO BEGIN</div>
+      </div>
+    </div>
+
+    <div class="inputs" id="inputs">
+      <div class="inputBox"><label>HOURS</label><input class="field" id="hh" type="number" min="0" max="23" value="0"></div>
+      <div class="inputBox"><label>MINUTES</label><input class="field" id="mm" type="number" min="0" max="59" value="0"></div>
+      <div class="inputBox"><label>SECONDS</label><input class="field" id="ss" type="number" min="0" max="59" value="0"></div>
+    </div>
+
+    <div class="controls">
+      <button class="btn primary" id="start">▶ START</button>
+      <button class="btn secondary" id="reset">↻ RESET</button>
+      <button class="btn secondary" id="preview">▶ PREVIEW</button>
+    </div>
+
+    <div class="row sound">
+      <div><strong>🔔 Alarm sound</strong><small>Generated inside ChronoX — no external files.</small></div>
+      <select id="sound"></select>
+    </div>
+    <div class="row">
+      <div><strong id="alarmLabel">Alarm ON</strong><small>Alarm repeats until STOP or RESET.</small></div>
+      <button class="toggle on" id="alarmToggle"><i></i></button>
+    </div>
+    <div class="row">
+      <div><strong>Repeat alarm</strong><small>Keep looping the selected alarm.</small></div>
+      <button class="toggle on" id="repeatToggle"><i></i></button>
+    </div>
+  </section>
+</div></main>
+
+<!-- MENU -->
+<div class="overlay hidden" id="menuOverlay"><aside class="drawer" id="drawer">
+  <div class="menuLabel" id="menuHello">CHRONOX MENU</div>
+  <button class="menuItem" data-nav="user"><span class="mi">👤</span><span><b>User Settings</b><small>Username, email, picture, login date and help</small></span></button>
+  <button class="menuItem" data-nav="settings"><span class="mi">⚙️</span><span><b>Settings</b><small>Sounds, volume and timer limit</small></span></button>
+  <button class="menuItem" data-nav="about"><span class="mi">ⓘ</span><span><b>About Us</b><small>ChronoX information</small></span></button>
+  <button class="menuItem" data-nav="timer"><span class="mi">⏱</span><span><b>Timer</b><small>Countdown mode</small></span></button>
+  <button class="menuItem" data-nav="stopwatch"><span class="mi">⏲</span><span><b>Stopwatch</b><small>Hundredths mode</small></span></button>
+  <div class="menuLabel" style="margin-top:19px">ACCOUNT</div>
+  <button class="menuItem" id="menuAccount"><span class="mi">🔐</span><span><b id="menuAccountText">Log In / Register</b><small>Account access</small></span></button>
+  <button class="menuItem hidden" id="menuLogout"><span class="mi">↪</span><span><b>Log Out</b><small>End current session</small></span></button>
+  <button class="menuItem" id="menuClose"><span class="mi">✕</span><span><b>Close Menu</b><small>Return to ChronoX</small></span></button>
+</aside></div>
+
+<!-- DISPLAY NAME -->
+<section class="full hidden" id="displayNameScreen"><div class="displayName panel">
+  <div class="logo"></div>
+  <h1>WELCOME TO CHRONOX</h1>
+  <p>Add your display name first. Then ChronoX takes you through login or registration.</p>
+  <input class="field" id="displayName" maxlength="24" placeholder="Display name" style="margin-top:14px;text-align:center">
+  <div class="error" id="displayError"></div>
+  <button class="btn primary" id="displayContinue" style="width:100%;margin-top:7px">CONTINUE</button>
+</div></section>
+
+<!-- AUTH -->
+<section class="full hidden" id="authScreen"><div class="auth panel">
+  <button class="btn secondary" id="authBack" style="padding:8px 10px">← BACK</button>
+  <div class="authLogo" style="margin-top:4px"><div class="logo"></div><h1 id="authTitle">LOGIN</h1><p id="authSub">Sign in to an existing ChronoX account.</p></div>
+  <div class="tabs"><button class="tab active" id="loginTab">LOGIN</button><button class="tab" id="registerTab">REGISTER</button></div>
+  <div id="loginForm">
+    <div class="formGroup"><label>EMAIL</label><input class="field" id="loginEmail" type="email" placeholder="you@example.com"></div>
+    <div class="formGroup"><label>PASSWORD</label><input class="field" id="loginPassword" type="password" placeholder="Password"></div>
+    <div class="help">When you enter an email, ChronoX searches the accounts saved in this browser/device and logs you into the matching local account.</div>
+    <div class="error" id="loginError"></div>
+    <button class="btn primary" id="loginSubmit" style="width:100%;margin-top:8px">LOGIN</button>
+  </div>
+  <div id="registerForm" class="hidden">
+    <div class="formGroup"><label>DISPLAY NAME</label><input class="field" id="regName" maxlength="24" placeholder="Your display name"></div>
+    <div class="formGroup"><label>EMAIL</label><input class="field" id="regEmail" type="email" placeholder="you@example.com"></div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+      <div class="formGroup"><label>PASSWORD</label><input class="field" id="regPass" type="password" placeholder="At least 6 chars"></div>
+      <div class="formGroup"><label>CONFIRM PASSWORD</label><input class="field" id="regPass2" type="password" placeholder="Confirm"></div>
+    </div>
+    <div class="formGroup"><label>BIRTH DATE — MM/DD/YYYY</label><input class="field" id="birth" inputmode="numeric" maxlength="10" placeholder="MM/DD/YYYY"></div>
+    <div class="help">ChronoX requires 13+ to register. An account whose saved birth date shows 21+ gets Parental Mode controls.</div>
+    <div class="error" id="regError"></div>
+    <button class="btn primary" id="regSubmit" style="width:100%;margin-top:8px">REGISTER</button>
+  </div>
+  <div class="help" style="margin-top:14px">This one-file version uses local browser storage. It is not a replacement for secure server authentication.</div>
+</div></section>
+
+<!-- USER SETTINGS -->
+<section class="full hidden" id="userScreen"><div class="panel">
+  <div class="panelHead"><button class="tinyBack" data-close>←</button><h2>USER SETTINGS</h2><div class="spacer"></div></div>
+  <div class="sectionGrid">
+    <div class="section">
+      <h3>PROFILE</h3>
+      <div style="display:flex;gap:10px;align-items:center"><div class="logo" id="avatar" style="width:58px;height:58px">CX</div><div><input type="file" id="avatarFile" accept="image/*" hidden><button class="btn secondary" id="avatarBtn">PROFILE PIC</button><small style="display:block;color:#71657a;font-size:7px;margin-top:5px">Saved on this device.</small></div></div>
+    </div>
+    <div class="section">
+      <h3>ACCOUNT</h3>
+      <div class="setting"><div><strong>Username</strong><small id="uName">—</small></div></div>
+      <div class="setting"><div><strong>Email</strong><small id="uEmail">—</small></div></div>
+      <div class="setting"><div><strong>Date logged in</strong><small id="uLogin">—</small></div></div>
+    </div>
+    <div class="section wide"><h3>HELP</h3><div class="setting"><div><strong>Spacebar</strong><small>Starts or pauses the active timer/stopwatch mode.</small></div></div><div class="setting"><div><strong>Alarm</strong><small>The alarm repeats until you stop/reset it when repeat is enabled.</small></div></div></div>
+    <div class="section wide"><h3>TIMER / STOPWATCH HISTORY</h3><div class="history" id="history"></div></div>
+    <div class="section wide"><h3>PARENTAL MODE</h3><div id="parental"></div></div>
+  </div>
+  <div class="panelFoot"><button class="btn danger" id="logout">LOG OUT</button><button class="btn primary" data-close>DONE</button></div>
+</div></section>
+
+<!-- SETTINGS -->
+<section class="full hidden" id="settingsScreen"><div class="panel">
+  <div class="panelHead"><button class="tinyBack" data-close>←</button><h2>SETTINGS</h2><div class="spacer"></div></div>
+  <div class="sectionGrid">
+    <div class="section">
+      <h3>SOUNDS</h3>
+      <div class="setting"><div><strong>Sound</strong><small>Built-in alarm sound</small></div><div class="settingRight"><select id="settingsSound"></select></div></div>
+      <div class="setting"><div><strong>Volume</strong><small>0% — 100%</small></div><div class="settingRight"><input id="volume" type="range" min="0" max="100"><span id="volumeText" style="font-size:8px;color:#bd9bfa">70%</span></div></div>
+    </div>
+    <div class="section">
+      <h3>TIMER LIMIT</h3>
+      <div class="setting"><div><strong>Maximum timer</strong><small>Controls the timer setup range.</small></div><div class="settingRight"><select id="maxTimer"><option value="86399">23:59:59</option><option value="43200">12:00:00</option><option value="21600">06:00:00</option><option value="3600">01:00:00</option></select></div></div>
+    </div>
+    <div class="section wide">
+      <h3>LOCAL DATA</h3>
+      <div class="setting"><div><strong>Clear history</strong><small>Removes this account's timer and stopwatch history from this browser.</small></div><button class="btn danger" id="clearHistory">CLEAR</button></div>
+      <div class="setting"><div><strong>Reset preferences</strong><small>Restores sound, volume, alarm and timer-limit defaults.</small></div><button class="btn secondary" id="resetPrefs">RESET</button></div>
+    </div>
+  </div>
+  <div class="panelFoot"><button class="btn primary" data-close>SAVE & CLOSE</button></div>
+</div></section>
+
+<!-- ABOUT -->
+<section class="full hidden" id="aboutScreen"><div class="panel">
+  <div class="panelHead"><button class="tinyBack" data-close>←</button><h2>ABOUT CHRONOX</h2><div class="spacer"></div></div>
+  <div class="section wide"><h3>CHRONOX</h3><p style="font-size:9px;line-height:1.8;color:#8a7c93">ChronoX is a purple/black timer and stopwatch app with built-in audio, account flow, local history, user settings and optional 21+ Parental Mode.</p></div>
+  <div class="section wide" style="margin-top:9px"><h3>STANDALONE ACCOUNT NOTE</h3><p style="font-size:9px;line-height:1.8;color:#8a7c93">Because this is one HTML file, accounts, profile pictures, history and child profiles are stored locally. Real multi-device account syncing would require a secure backend.</p></div>
+</div></section>
+
+<!-- LOADING -->
+<div class="loading hidden" id="loading"><div><div class="loadClock"><div class="lh"></div><div class="lm"></div><div class="ls"></div><div class="dot"></div></div><h3 id="loadingTitle">LOADING</h3><p>CHRONOX • FINISHING SETUP</p></div></div>
+<div class="toast" id="toast"></div>
+</div>
+
+<script>
+"use strict";
+const S={accounts:"cx.accounts.v3",session:"cx.session.v3",prefs:"cx.prefs.v3",seen:"cx.seen.v3"};
+const DEFAULT={sound:"Classic",volume:70,maxTimer:86399,alarm:true,repeat:true};
+const SOUNDS={Classic:[880,660],Digital:[1046.5,1318.5,1568],"Double Beep":[1200,1200],Bell:[784,1046.5],Pulse:[560,560,800],Soft:[659.25,783.99]};
+const $=id=>document.getElementById(id);
+let prefs=Object.assign({},DEFAULT,load(S.prefs,{}));
+let currentUser=null,mode="timer",running=false,timerSeconds=0,stopwatch=0,acc=0,lastTick=0,loopId=null,alarmActive=false,alarmTimer=null,audio=null,gain=null,pendingName="",authMode="login",toastTimer=null;
+function load(k,d){try{return JSON.parse(localStorage.getItem(k)||JSON.stringify(d))}catch{return d}}
+function save(k,v){localStorage.setItem(k,JSON.stringify(v))}
+function accounts(){return load(S.accounts,[])}
+function setAccounts(a){save(S.accounts,a)}
+function setPrefs(){save(S.prefs,prefs)}
+function esc(s){return String(s??"").replace(/[&<>"]/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;"}[m]))}
+function fmtDate(v){const d=new Date(v);return isNaN(d)?"—":d.toLocaleString([], {month:"2-digit",day:"2-digit",year:"numeric",hour:"2-digit",minute:"2-digit"})}
+function pad(n){return String(n).padStart(2,"0")}
+function toast(t){$("toast").textContent=t;$("toast").classList.add("show");clearTimeout(toastTimer);toastTimer=setTimeout(()=>$("toast").classList.remove("show"),1800)}
+function hash(s){let h=2166136261;for(let i=0;i<s.length;i++){h^=s.charCodeAt(i);h=Math.imul(h,16777619)}return (h>>>0).toString(16)}
+function id(){return "cx_"+Date.now().toString(36)+Math.random().toString(36).slice(2,8)}
+function ageFrom(v){const p=v.split("/").map(Number);if(p.length!==3||!p.every(Number.isInteger))return null;const [m,d,y]=p;if(y<1900||m<1||m>12||d<1||d>31)return null;const b=new Date(y,m-1,d),n=new Date();if(b.getFullYear()!==y||b.getMonth()!==m-1||b.getDate()!==d)return null;let a=n.getFullYear()-y;if(n.getMonth()<m-1||(n.getMonth()===m-1&&n.getDate()<d))a--;return a}
+function clamp(n,a,b){return Math.max(a,Math.min(b,n))}
+function sessionUser(){const s=load(S.session,null);if(!s)return null;const a=accounts().find(x=>x.id===s.id);return a||null}
+function updateAccount(u){const a=accounts(),i=a.findIndex(x=>x.id===u.id);if(i<0)return;a[i]=u;setAccounts(a);currentUser=u}
+function setSession(u){save(S.session,{id:u.id})}
+function clearSession(){localStorage.removeItem(S.session)}
+function updateHeader(){if(currentUser){$("brandSub").textContent=(currentUser.displayName||"USER").toUpperCase();$("heroTitle").textContent="Welcome, "+(currentUser.displayName||"User");$("heroText").textContent=currentUser.is21?"Account active • Parental Mode available":"Account active • Your local history is saved";$("status").textContent="LOGGED IN";$("status").classList.add("on");$("menuHello").textContent=(currentUser.displayName||"USER").toUpperCase()+" • CHRONOX MENU";$("menuAccountText").textContent="Account";$("menuLogout").classList.remove("hidden")}else{$("brandSub").textContent="TIME CONTROL SYSTEM";$("heroTitle").textContent="ChronoX";$("heroText").textContent="Precision timing with built-in sounds and local history.";$("status").textContent="GUEST MODE";$("status").classList.remove("on");$("menuHello").textContent="CHRONOX MENU";$("menuAccountText").textContent="Log In / Register";$("menuLogout").classList.add("hidden")}}
+function fillSounds(){for(const sel of [$("sound"),$("settingsSound")]){sel.innerHTML="";Object.keys(SOUNDS).forEach(s=>{const o=document.createElement("option");o.value=s;o.textContent=s;sel.appendChild(o)});sel.value=prefs.sound}}
+function showLoading(text,ms,done){$("loadingTitle").textContent=text;$("loading").classList.remove("hidden");setTimeout(()=>{done?.();setTimeout(()=>$("loading").classList.add("hidden"),160)},ms)}
+function openPanel(id){document.querySelectorAll(".full").forEach(x=>x.classList.add("hidden"));$(id).classList.remove("hidden")}
+function closePanels(){document.querySelectorAll(".full").forEach(x=>x.classList.add("hidden"))}
+function openMenu(){$("menuOverlay").classList.remove("hidden");setTimeout(()=>$("drawer").classList.add("open"),10);document.documentElement.requestFullscreen?.().catch(()=>{})}
+function closeMenu(){$("drawer").classList.remove("open");setTimeout(()=>$("menuOverlay").classList.add("hidden"),250)}
+$("menuButton").addEventListener("mouseenter",openMenu);$("menuButton").addEventListener("focus",openMenu);$("menuButton").addEventListener("click",openMenu);$("menuClose").addEventListener("click",closeMenu);$("menuOverlay").addEventListener("click",e=>{if(e.target===$("menuOverlay"))closeMenu()});$("logoHome").addEventListener("click",()=>{closeMenu();closePanels()});
+/* auth */
+function openDisplay(){openPanel("displayNameScreen");$("displayName").focus()}
+function setAuth(m){authMode=m;const login=m==="login";$("loginTab").classList.toggle("active",login);$("registerTab").classList.toggle("active",!login);$("loginForm").classList.toggle("hidden",!login);$("registerForm").classList.toggle("hidden",login);$("authTitle").textContent=login?"LOGIN":"REGISTER";$("authSub").textContent=login?"Sign in to an existing ChronoX account.":"Create your ChronoX account."}
+function openAuth(m="login"){setAuth(m);openPanel("authScreen");if(m==="register")$("regName").value=pendingName}
+$("displayContinue").addEventListener("click",()=>{const n=$("displayName").value.trim();if(!n){$("displayError").textContent="Enter a display name.";return}pendingName=n.slice(0,24);localStorage.setItem(S.seen,"1");openAuth(accounts().length?"login":"register")});
+$("loginTab").addEventListener("click",()=>setAuth("login"));$("registerTab").addEventListener("click",()=>setAuth("register"));$("authBack").addEventListener("click",()=>{closePanels();if(!accounts().length)openDisplay()});
+$("regSubmit").addEventListener("click",()=>{const name=$("regName").value.trim()||pendingName,email=$("regEmail").value.trim().toLowerCase(),pass=$("regPass").value,pass2=$("regPass2").value,birth=$("birth").value.trim();if(!name){$("regError").textContent="Enter a display name.";return}if(!email.includes("@")){$("regError").textContent="Enter a valid email.";return}if(pass.length<6){$("regError").textContent="Password must be at least 6 characters.";return}if(pass!==pass2){$("regError").textContent="Passwords do not match.";return}const age=ageFrom(birth);if(age===null){$("regError").textContent="Birth date must be MM/DD/YYYY.";return}if(age<13){$("regError").textContent="You must be 13 or older to register.";return}if(accounts().some(a=>a.email===email)){$("regError").textContent="That email already exists. Use Login.";return}const u={id:id(),displayName:name,email,password:hash(pass),birthDate:birth,age,is21:age>=21,createdAt:new Date().toISOString(),lastLoginAt:new Date().toISOString(),profilePic:"",history:[],children:[]};const a=accounts();a.push(u);setAccounts(a);showLoading("CREATING ACCOUNT",750,()=>{currentUser=u;setSession(u);closePanels();updateHeader();toast("Account created")})});
+$("loginSubmit").addEventListener("click",()=>{const email=$("loginEmail").value.trim().toLowerCase(),pass=$("loginPassword").value,u=accounts().find(a=>a.email===email);if(!u){$("loginError").textContent="No ChronoX account was found for that email.";return}if(u.password!==hash(pass)){$("loginError").textContent="Incorrect password.";return}if((u.age??ageFrom(u.birthDate))<13){$("loginError").textContent="This account does not meet the 13+ requirement.";return}u.lastLoginAt=new Date().toISOString();updateAccount(u);showLoading("LOGGING IN",700,()=>{currentUser=u;setSession(u);closePanels();updateHeader();toast("Logged in")})});
+$("birth").addEventListener("input",()=>{let d=$("birth").value.replace(/\D/g,"").slice(0,8);if(d.length>4)d=d.slice(0,2)+"/"+d.slice(2,4)+"/"+d.slice(4);else if(d.length>2)d=d.slice(0,2)+"/"+d.slice(2);$("birth").value=d});
+/* nav */
+document.querySelectorAll("[data-nav]").forEach(b=>b.addEventListener("click",()=>{const n=b.dataset.nav;closeMenu();if(n==="timer"){switchMode("timer");closePanels()}else if(n==="stopwatch"){switchMode("stopwatch");closePanels()}else if(n==="user"){if(!currentUser)openAuth("login");else{renderUser();openPanel("userScreen")}}else if(n==="settings"){renderSettings();openPanel("settingsScreen")}else if(n==="about")openPanel("aboutScreen")}));
+$("menuAccount").addEventListener("click",()=>{closeMenu();currentUser?openPanel("userScreen"):openAuth("login");if(currentUser)renderUser()});$("menuLogout").addEventListener("click",()=>logout());
+function logout(){stopAlarm();clearSession();currentUser=null;closeMenu();closePanels();updateHeader();toast("Logged out")}
+document.querySelectorAll("[data-close]").forEach(b=>b.addEventListener("click",closePanels));
+/* settings */
+function renderSettings(){fillSounds();$("settingsSound").value=prefs.sound;$("volume").value=prefs.volume;$("volumeText").textContent=prefs.volume+"%";$("maxTimer").value=prefs.maxTimer}
+$("sound").addEventListener("change",()=>{prefs.sound=$("sound").value;setPrefs();$("settingsSound").value=prefs.sound});$("settingsSound").addEventListener("change",()=>{prefs.sound=$("settingsSound").value;setPrefs();$("sound").value=prefs.sound});$("volume").addEventListener("input",()=>{prefs.volume=Number($("volume").value);setPrefs();$("volumeText").textContent=prefs.volume+"%";if(gain)gain.gain.value=prefs.volume/100});$("maxTimer").addEventListener("change",()=>{prefs.maxTimer=Number($("maxTimer").value);setPrefs();limitInputs()});$("clearHistory").addEventListener("click",()=>{if(currentUser){currentUser.history=[];updateAccount(currentUser);renderUser();toast("History cleared")}});$("resetPrefs").addEventListener("click",()=>{prefs={...DEFAULT};setPrefs();renderSettings();alarmEnabled=prefs.alarm;repeatEnabled(prefs.repeat);toast("Preferences reset")});
+/* user settings + parental */
+function renderUser(){if(!currentUser)return;$("uName").textContent=currentUser.displayName;$("uEmail").textContent=currentUser.email;$("uLogin").textContent=fmtDate(currentUser.lastLoginAt);if(currentUser.profilePic)$("avatar").innerHTML=`<img src="${currentUser.profilePic}" style="width:100%;height:100%;object-fit:cover;border-radius:13px">`;else $("avatar").innerHTML="CX";const h=[...(currentUser.history||[])].reverse();$("history").innerHTML=h.length?h.slice(0,100).map(x=>`<div class="historyItem"><div><strong>${esc(x.type.toUpperCase())}</strong><small>${esc(fmtDate(x.at))}</small></div><div class="historyTime">${esc(x.label)}</div></div>`).join(""):"<div class='empty'>No activity history yet.</div>";renderParental()}
+function renderParental(){if(!currentUser)return;if(!currentUser.is21){$("parental").innerHTML="<div class='empty'>Parental Mode is available when the saved account age is 21+.</div>";return}const children=currentUser.children||[];$("parental").innerHTML=`<div id="parentalModeBar">PARENTAL MODE ON • You can add local child profiles and review their locally recorded ChronoX activity.</div><div style="display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-top:8px"><input class="field" id="childName" placeholder="Child name"><input class="field" id="childEmail" placeholder="Child email (optional)"></div><button class="btn primary" id="addChild" style="width:100%;margin-top:7px">ADD CHILD</button><div>${children.length?children.map(c=>`<div class="child"><div class="childTop"><b>${esc(c.name)}</b><span>${esc(c.email||"No email")}</span></div><div class="bar"><i style="width:${Math.min(100,Math.round((c.usageMs||0)/180000))}%"></i></div><div style="display:flex;justify-content:space-between;margin-top:6px;color:#76697d;font-size:7px"><span>Usage</span><span>${Math.round((c.usageMs||0)/60000)} min</span></div><div style="display:flex;gap:6px;margin-top:7px"><button class="btn secondary viewChild" data-id="${c.id}">VIEW</button><button class="btn danger delChild" data-id="${c.id}">REMOVE</button></div></div>`).join(""):"<div class='empty'>No child profiles added yet.</div>"}</div>`;$("addChild").onclick=()=>{const name=$("childName").value.trim(),email=$("childEmail").value.trim();if(!name){toast("Enter the child name");return}currentUser.children=currentUser.children||[];currentUser.children.push({id:id(),name,email,history:[],usageMs:0,createdAt:new Date().toISOString()});updateAccount(currentUser);renderUser();toast("Child added")};document.querySelectorAll(".viewChild").forEach(b=>b.onclick=()=>{const c=currentUser.children.find(x=>x.id===b.dataset.id);if(!c)return;const h=c.history||[];toast(`${c.name}: ${h.length} history record${h.length===1?"":"s"}`)});document.querySelectorAll(".delChild").forEach(b=>b.onclick=()=>{currentUser.children=currentUser.children.filter(x=>x.id!==b.dataset.id);updateAccount(currentUser);renderUser();toast("Child removed")})}
+$("avatarBtn").addEventListener("click",()=>$("avatarFile").click());$("avatarFile").addEventListener("change",()=>{const f=$("avatarFile").files?.[0];if(!f||!currentUser)return;const r=new FileReader();r.onload=()=>{currentUser.profilePic=r.result;updateAccount(currentUser);renderUser();toast("Profile picture saved")};r.readAsDataURL(f)});
+/* timer */
+function switchMode(m){stopAlarm();running=false;stopTicker();mode=m;document.querySelectorAll(".mode").forEach(b=>b.classList.toggle("active",b.dataset.mode===m));$("inputs").classList.toggle("hidden",m!=="timer");$("caption").textContent=m==="timer"?"COUNTDOWN TIMER":"STOPWATCH";update()}
+function limitInputs(){let h=clamp(parseInt($("hh").value)||0,0,23),m=clamp(parseInt($("mm").value)||0,0,59),s=clamp(parseInt($("ss").value)||0,0,59);let t=h*3600+m*60+s;if(t>prefs.maxTimer){t=prefs.maxTimer;h=Math.floor(t/3600);m=Math.floor((t%3600)/60);s=t%60;$("hh").value=h;$("mm").value=m;$("ss").value=s;toast("Adjusted to the maximum timer limit")}}
+["hh","mm","ss"].forEach(id0=>$(id0).addEventListener("input",limitInputs));
+function startTimer(){if(!timerSeconds){limitInputs();timerSeconds=(parseInt($("hh").value)||0)*3600+(parseInt($("mm").value)||0)*60+(parseInt($("ss").value)||0)}if(!timerSeconds){toast("Set a timer first");return}stopAlarm();running=true;addHistory("timer",timerSeconds*1000);startTicker();update()}
+function startStopwatch(){stopAlarm();running=true;startTicker();update()}
+function startTicker(){stopTicker();lastTick=performance.now();loopId=setInterval(()=>{const n=performance.now();const d=(n-lastTick)/1000;lastTick=n;if(mode==="timer"){if(running){acc+=d;while(acc>=1){acc-=1;timerSeconds--;if(timerSeconds<=0){timerSeconds=0;running=false;stopTicker();update();triggerAlarm();return}}}}else if(running){stopwatch+=d}update()},16)}
+function stopTicker(){if(loopId)clearInterval(loopId);loopId=null;lastTick=0}
+function reset(){if(mode==="timer"){timerSeconds=0;$("hh").value=0;$("mm").value=0;$("ss").value=0}else{if(stopwatch>0)addHistory("stopwatch",stopwatch*1000);stopwatch=0}running=false;stopTicker();stopAlarm();update()}
+function update(){if(mode==="timer"){const h=Math.floor(timerSeconds/3600),m=Math.floor((timerSeconds%3600)/60),s=timerSeconds%60;$("time").textContent=`${pad(h)}:${pad(m)}:${pad(s)}`;$("sub").textContent=running?"RUNNING":timerSeconds?"PAUSED":"SET A TIME TO BEGIN"}else{const m=Math.floor(stopwatch/60),s=Math.floor(stopwatch%60),hs=Math.floor((stopwatch%1)*100);$("time").textContent=`${pad(m)}:${pad(s)}.${pad(hs)}`;$("sub").textContent=running?"RUNNING":stopwatch?"PAUSED":"READY"}$("start").textContent=running?"⏸ PAUSE":"▶ START"}
+$("start").addEventListener("click",()=>{if(mode==="timer"){running? (running=false,stopTicker(),update()):startTimer()}else{running?(running=false,stopTicker(),update(),stopwatch>0&&addHistory("stopwatch-pause",stopwatch*1000)):startStopwatch()}});$("reset").addEventListener("click",reset);$("preview").addEventListener("click",preview);
+document.querySelectorAll(".mode").forEach(b=>b.addEventListener("click",()=>switchMode(b.dataset.mode)));
+/* audio */
+function ensureAudio(){if(audio)return;try{audio=new (window.AudioContext||window.webkitAudioContext)();gain=audio.createGain();gain.gain.value=prefs.volume/100;gain.connect(audio.destination)}catch{}}
+function wakeAudio(){ensureAudio();if(audio?.state==="suspended")audio.resume()}
+function note(freq,dur,start,type="sine",vol=.2){if(!audio||!gain)return;const o=audio.createOscillator(),g=audio.createGain();o.type=type;o.frequency.value=freq;const v=vol*prefs.volume/100;g.gain.setValueAtTime(.0001,start);g.gain.exponentialRampToValueAtTime(Math.max(.0002,v),start+.015);g.gain.exponentialRampToValueAtTime(.0001,start+dur);o.connect(g).connect(gain);o.start(start);o.stop(start+dur+.03)}
+function preview(){wakeAudio();if(!audio)return;const f=SOUNDS[$("sound").value]||SOUNDS.Classic;let t=audio.currentTime+.03;for(let i=0;i<f.length;i++){note(f[i],.22,t,i?"triangle":"sine",.2);t+=.34}toast("Sound preview")}
+function triggerAlarm(){if(!prefs.alarm)return;alarmActive=true;playAlarm();updateAlarmButtons()}
+function playAlarm(){if(!alarmActive)return;wakeAudio();const f=SOUNDS[$("sound").value]||SOUNDS.Classic;let t=audio.currentTime+.03;for(let i=0;i<f.length;i++){note(f[i],.23,t,i?"triangle":"sine",.24);t+=.36}if(prefs.repeat)alarmTimer=setTimeout(playAlarm,Math.max(500,f.length*360+350))}
+function stopAlarm(){alarmActive=false;if(alarmTimer)clearTimeout(alarmTimer);alarmTimer=null;updateAlarmButtons()}
+function updateAlarmButtons(){$("alarmToggle").classList.toggle("on",prefs.alarm);$("alarmLabel").textContent=prefs.alarm?"Alarm ON":"Alarm OFF";$('repeatToggle').classList.toggle('on',prefs.repeat)}
+$("alarmToggle").addEventListener("click",()=>{prefs.alarm=!prefs.alarm;setPrefs();if(!prefs.alarm)stopAlarm();updateAlarmButtons()});$("repeatToggle").addEventListener("click",()=>{prefs.repeat=!prefs.repeat;setPrefs();if(!prefs.repeat&&alarmActive&&alarmTimer){clearTimeout(alarmTimer);alarmTimer=null}updateAlarmButtons()});
+/* history */
+function addHistory(type,duration){if(!currentUser)return;currentUser.history=currentUser.history||[];currentUser.history.push({id:id(),type:type.includes("stopwatch")?"stopwatch":"timer",label:type.includes("stopwatch")?swfmt(duration/1000):tmfmt(duration/1000),at:new Date().toISOString()});if(currentUser.history.length>200)currentUser.history=currentUser.history.slice(-200);updateAccount(currentUser)}
+function tmfmt(x){x=Math.max(0,Math.round(x));return `${pad(Math.floor(x/3600))}:${pad(Math.floor((x%3600)/60))}:${pad(x%60)}`}
+function swfmt(x){return `${pad(Math.floor(x/60))}:${pad(Math.floor(x%60))}.${pad(Math.floor((x%1)*100))}`}
+/* keyboard */
+document.addEventListener("keydown",e=>{if(e.code!=="Space")return;const t=e.target;if(["INPUT","TEXTAREA","SELECT"].includes(t.tagName))return;if(!$('authScreen').classList.contains('hidden')||!$('displayNameScreen').classList.contains('hidden'))return;if(!document.querySelector(".full:not(.hidden)")===null)return;e.preventDefault();mode==='timer'?(running?(running=false,stopTicker(),update()):startTimer()):(running?(running=false,stopTicker(),update()):startStopwatch())});
+/* first-run + boot */
+function boot(){fillSounds();$("sound").value=prefs.sound;$("settingsSound").value=prefs.sound;$("volume").value=prefs.volume;$("volumeText").textContent=prefs.volume+"%";$("maxTimer").value=prefs.maxTimer;currentUser=sessionUser();updateHeader();updateAlarmButtons();update();if(!localStorage.getItem(S.seen)){showLoading("STARTING CHRONOX",650,openDisplay)}}
+boot();
+</script>
+</body>
+</html>
